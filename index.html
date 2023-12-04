@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TiendaMascotas</title>
+    <link rel="stylesheet" href="./styles.css">
+    <script src="./masc.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <h1>Tienda de Mascotas</h1>
+            <ul>
+                <li><a href="index.html"> Inicio </a></li>
+                <li><a href="index.html"> Agendar </a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>CITAS AGENDADAS</h2>
+        <h3 id="alert"></h3>
+        <div class="container">
+            <div class="tipoCita">
+                <h3>Organizar Por:</h3><br>
+
+                <input type="radio" name="filtro" id="abierta" checked> Abierta <br> <br>
+                <input type="radio" name="filtro" id="cerrada"> Cerrada <br> <br>
+                <input type="radio" name="filtro" id="anulada"> Anulada
+
+            </div>
+            <div class="agendaCita">
+                <h4>AGENDA TU CITA</h4>
+                <div class="form">
+                    <div class="texto">
+                        <label>Nombre:</label>
+                        <input type="text" id="nombre">
+
+                        <label>Propietario:</label>
+                        <input type="text" id="propietario">
+
+                        <label>Telefono:</label>
+                        <input type="number" id="telefono">
+
+                        <label>Fecha:</label>
+                        <input type="date" id="fecha">
+
+                        <label>Hora:</label>
+                        <input type="time" id="hora">
+
+                        <label>Sintomas:</label>
+                        <input type="text" id="sintomas">
+
+                        <div>
+                            <label>Tipo de Mascota</label>
+                            <select name="" id="tipoMascota">
+                                <option value=""></option>
+                                <option value="gato">Gato</option>
+                                <option value="perro">Perro</option>
+                                <option value="gallina">Gallina</option>
+                                <option value="conejo">Conejo</option>
+                                <option value="pato">Pato</option>
+                            </select>
+                        </div>
+                        <button id="buton" onclick="registrar()">Asignar</button>
+
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+        <div class="citas">
+            <h4 class="citasA"> Citas </h4>
+            
+            <div id="citasAbiertas"></div>
+        </div>
+
+    </main>
+    <footer>
+
+    </footer>
+</body>
+
+</html>
