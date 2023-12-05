@@ -5,150 +5,292 @@ let op = null;
 let indice = null;
 
 let animales = [
-    { gato: './imagenes/gato.png' },
-    { perro: './imagenes/perro.png' },
-    { gallina: './imagenes/gallina.png' },
-    { pato: './imagenes/patopng.png' },
-    { conejo: './imagenes/conejo.png' }
+  { gato: "./imagenes/gato.png" },
+  { perro: "./imagenes/perro.png" },
+  { gallina: "./imagenes/gallina.png" },
+  { pato: "./imagenes/pato.png" },
+  { conejo: "./imagenes/conejo.png" },
 ];
 
-function registrar() {
-    let nombre = document.getElementById('nombre').value;
-    let propietario = document.getElementById('propietario').value;
-    let fecha = document.getElementById('fecha').value;
-    let hora = document.getElementById('hora').value;
-    let telefono = document.getElementById('telefono').value;
-    let tipoMascota = document.getElementById('tipoMascota').value;
-    let sintomas = document.getElementById('sintomas').value;
-
-    if (op === true) {
-        registros[indice].nombre = nombre;
-        registros[indice].propietario = propietario;
-        registros[indice].fecha = fecha;
-        registros[indice].hora = hora;
-        registros[indice].telefono = telefono;
-        registros[indice].tipoMascota = tipoMascota;
-        registros[indice].sintomas = sintomas;
-
-        op = false;
-
-        mostrarCitasAbiertas();
-    } else {
-        let user = {
-            nombre: nombre,
-            propietario: propietario,
-            telefono: telefono,
-            tipoMascota: tipoMascota,
-            sintomas: sintomas,
-            fecha: fecha,
-            hora: hora
-        };
-
-        registros.push(user);
-        mostrarCitasAbiertas();
+function validar() {
+    let validarTexto = /^[a-zA-Z]+$/;
+    let validarTelefono = /^\d{1,11}$/;
+    nombre = document.getElementById("nombre").value;
+    propietario = document.getElementById("propietario").value;
+    telefono = document.getElementById("telefono").value;
+    tipoMascota = document.getElementById("tipoMascota").value;
+    sintomas = document.getElementById("sintomas").value;
+    fecha = document.getElementById("fecha").value;
+    hora = document.getElementById("hora").value;
+    let fechaSeleccionanda = new Date(fecha);
+    let fechaActual = new Date();
+    let validarHora = parseInt(hora.split(":")[0], 10);
+    let validarMinutos = parseInt(hora.split(":")[1], 10);
+    if (nombre == "") {
+      document.getElementById("alert").textContent =
+        "El nombre no debe estar vacio";
+      setTimeout(() => {
+        document.getElementById("alert").textContent = "";
+      }, 2000);
+    } else if (!validarTexto.test(nombre)) {
+      document.getElementById("alert").textContent =
+        "El nombre solo debe contener letras";
+      setTimeout(() => {
+        document.getElementById("alert").textContent = "";
+      }, 2000);
+    } else if (propietario == "") {
+      document.getElementById("alert").textContent =
+        "El nombre de propietario no debe estar vacio";
+      setTimeout(() => {
+        document.getElementById("alert").textContent = "";
+      }, 2000);
+    } else if (!validarTexto.test(propietario)) {
+      document.getElementById("alert").textContent =
+        "El nombre de propietario solo debe contener letras";
+      setTimeout(() => {
+        document.getElementById("alert").textContent = "";
+      }, 2000);
+    } else if (telefono == "") {
+      document.getElementById("alert").textContent =
+        "El telefono no debe estar vacio";
+      setTimeout(() => {
+        document.getElementById("alert").textContent = "";
+      }, 2000);
+    } else if (!validarTelefono.test(telefono)) {
+      document.getElementById("alert").textContent =
+        "El telefono solo debe contener numeros, maximo 11 caracteres";
+      setTimeout(() => {
+        document.getElementById("alert").textContent = "";
+      }, 2000);
+    } else if (fechaSeleccionanda < fechaActual.setHours(0,0,0,0)) {
+      document.getElementById("alert").textContent =
+        "error al seleccionar la fecha";
+      setTimeout(() => {
+        document.getElementById("alert").textContent = "";
+      }, 2000);
+      fecha = document.getElementById("fecha").value = "";
+    } else if (fecha == "") {
+      document.getElementById("alert").textContent =
+        "debes seleccionar una fecha";
+      setTimeout(() => {
+        document.getElementById("alert").textContent = "";
+      }, 2000);
+    } else if (hora == "") {
+      document.getElementById("alert").textContent = "debes seleccionar una hora";
+      setTimeout(() => {
+        document.getElementById("alert").textContent = "";
+      }, 2000);
+    } else if (
+      validarHora < 8 ||
+      validarHora >horaMaxima ||
+      validarMinutos < 0 ||
+      validarMinutos > minMaximo
+    ) {
+      document.getElementById("alert").textContent =
+        "debes seleccionar una hora entre las 8 am y las 5:45 pm";
+      setTimeout(() => {
+        document.getElementById("alert").textContent = "";
+      }, 2000);
+    } else if (sintomas == "") {
+      document.getElementById("alert").textContent =
+        "coloca los sintomas que ha tenido tu mascota";
+      setTimeout(() => {
+        document.getElementById("alert").textContent = "";
+      }, 2000);
+    } else if (tipoMascota == "") {
+      document.getElementById("alert").textContent =
+        "debes seleccionar un tipo de mascota";
+      setTimeout(() => {
+        document.getElementById("alert").textContent = "";
+      }, 2000);
+    }
+    else {
+        registrar()
     }
 
-    document.getElementById('nombre').value = '';
-    document.getElementById('propietario').value = '';
-    document.getElementById('telefono').value = '';
-    document.getElementById('tipoMascota').value = '';
-    document.getElementById('sintomas').value = '';
-    document.getElementById('fecha').value = '';
-    document.getElementById('hora').value = '';
+}
+
+function registrar() {
+  let nombre = document.getElementById("nombre").value;
+  let propietario = document.getElementById("propietario").value;
+  let fecha = document.getElementById("fecha").value;
+  let hora = document.getElementById("hora").value;
+  let telefono = document.getElementById("telefono").value;
+  let tipoMascota = document.getElementById("tipoMascota").value;
+  let sintomas = document.getElementById("sintomas").value;
+
+  if (op === true) {
+    registros[indice].nombre = nombre;
+    registros[indice].propietario = propietario;
+    registros[indice].fecha = fecha;
+    registros[indice].hora = hora;
+    registros[indice].telefono = telefono;
+    registros[indice].tipoMascota = tipoMascota;
+    registros[indice].sintomas = sintomas;
+
+    op = false;
+
+    mostrarCitasAbiertas();
+  } else {
+    let user = {
+      nombre: nombre,
+      propietario: propietario,
+      telefono: telefono,
+      tipoMascota: tipoMascota,
+      sintomas: sintomas,
+      fecha: fecha,
+      hora: hora,
+    };
+
+    registros.push(user);
+    mostrarCitasAbiertas();
+  }
+
+  document.getElementById("nombre").value = "";
+  document.getElementById("propietario").value = "";
+  document.getElementById("telefono").value = "";
+  document.getElementById("tipoMascota").value = "";
+  document.getElementById("sintomas").value = "";
+  document.getElementById("fecha").value = "";
+  document.getElementById("hora").value = "";
 }
 
 function mostrarCitasAbiertas() {
-    let contenedorCitas = document.getElementById('citasAbiertas');
-    contenedorCitas.innerHTML = '';
+  let contenedorCitas = document.getElementById("citas");
+  contenedorCitas.innerHTML = "";
 
-    registros.forEach((cita, index) => {
-        let card = document.createElement('div');
-        card.classList.add('card');
-        
+  registros.forEach((cita, index) => {
+    let card = document.createElement("div");
+    card.classList.add("card");
 
-        let imagen = document.createElement('img');
-        let tipoMascota = cita.tipoMascota.toLowerCase();
-        let imagenURL = animales.find(animal => animal.hasOwnProperty(tipoMascota));
+    let imagen = document.createElement("img");
+    imagen.classList.add("imagen");
+    let tipoMascota = cita.tipoMascota.toLowerCase();
+    let imagenURL = animales.find((animal) =>
+      animal.hasOwnProperty(tipoMascota)
+    );
 
-        if (imagenURL) {
-            imagen.src = imagenURL[tipoMascota];
-            imagen.alt = tipoMascota;
-            card.appendChild(imagen);
-        } else {
-            imagen.src = 'ruta_a_imagen_por_defecto.png';
-            imagen.alt = 'Imagen no disponible';
-            card.appendChild(imagen);
-        }
+    if (imagenURL) {
+      imagen.src = imagenURL[tipoMascota];
+      imagen.alt = tipoMascota;
+      card.appendChild(imagen);
+    } else {
+      imagen.src = "ruta_a_imagen_por_defecto.png";
+      imagen.alt = "Imagen no disponible";
+      card.appendChild(imagen);
+    }
 
-        let detalles = document.createElement('div');
-        detalles.classList.add('detalles');
+    let detalles = document.createElement("div");
+    detalles.classList.add("detalles");
 
-        let nombre = document.createElement('p');
-        nombre.textContent = `Nombre: ${cita.nombre}`;
-        detalles.appendChild(nombre);
+    let nombre = document.createElement("p");
+    nombre.textContent = `Nombre: ${cita.nombre}`;
+    detalles.appendChild(nombre);
 
-        let propietario = document.createElement('p');
-        propietario.textContent = `Propietario: ${cita.propietario}`;
-        detalles.appendChild(propietario);
+    let propietario = document.createElement("p");
+    propietario.textContent = `Propietario: ${cita.propietario}`;
+    detalles.appendChild(propietario);
 
-        let fecha = document.createElement('p');
-        fecha.textContent = `Fecha: ${cita.fecha}`;
-        detalles.appendChild(fecha);
+    let fecha = document.createElement("p");
+    fecha.textContent = `Fecha: ${cita.fecha}`;
+    detalles.appendChild(fecha);
 
-        let hora = document.createElement('p');
-        hora.textContent = `Hora: ${cita.hora}`;
-        detalles.appendChild(hora);
+    let hora = document.createElement("p");
+    hora.textContent = `Hora: ${cita.hora}`;
+    detalles.appendChild(hora);
 
-        let telefono = document.createElement('p');
-        telefono.textContent = `Telefono: ${cita.telefono}`;
-        detalles.appendChild(telefono);
+    let telefono = document.createElement("p");
+    telefono.textContent = `Telefono: ${cita.telefono}`;
+    detalles.appendChild(telefono);
 
-        let sintomas = document.createElement('p');
-        sintomas.textContent = `Sintomas: ${cita.sintomas}`;
-        detalles.appendChild(sintomas);
+    let sintomas = document.createElement("p");
+    sintomas.textContent = `Sintomas: ${cita.sintomas}`;
+    detalles.appendChild(sintomas);
 
-        let tipoMascotas = document.createElement('p');
-        tipoMascotas.textContent = `Tipo Mascota: ${cita.tipoMascota}`;
-        detalles.appendChild(tipoMascotas);
+    let tipoMascotas = document.createElement("p");
+    tipoMascotas.textContent = `Tipo Mascota: ${cita.tipoMascota}`;
+    detalles.appendChild(tipoMascotas);
 
-        let botonEditar = document.createElement('button');
-        botonEditar.textContent = 'Editar';
-        botonEditar.addEventListener('click', () => {
-            editarCita(index);
-        });
-        detalles.appendChild(botonEditar);
-
-        let botonAnular = document.createElement('button');
-        botonAnular.textContent = 'Anular';
-        botonAnular.addEventListener('click', () => {
-            anularCita(index);
-        });
-        detalles.appendChild(botonAnular);
-
-        let botonCerrar = document.createElement('button');
-        botonCerrar.textContent = 'Cerrar';
-        botonCerrar.addEventListener('click', () => {
-            cerrarCita(index);
-        });
-        detalles.appendChild(botonCerrar)
-
-        card.appendChild(detalles);
-        contenedorCitas.appendChild(card);
+    let botonEditar = document.createElement("button");
+    botonEditar.textContent = "Editar";
+    botonEditar.classList.add("buton");
+    botonEditar.addEventListener("click", () => {
+      editarCita(index);
     });
+    detalles.appendChild(botonEditar);
+
+    let botonAnular = document.createElement("button");
+    botonAnular.textContent = "Anular";
+    botonAnular.classList.add("buton");
+    botonAnular.addEventListener("click", () => {
+      anularCita(index);
+    });
+    detalles.appendChild(botonAnular);
+
+    let botonCerrar = document.createElement("button");
+    botonCerrar.textContent = "Cerrar";
+    botonCerrar.classList.add("buton");
+    botonCerrar.addEventListener("click", () => {
+      cerrarCita(index);
+    });
+    detalles.appendChild(botonCerrar);
+
+    card.appendChild(detalles);
+    contenedorCitas.appendChild(card);
+  });
 }
 
 function editarCita(index) {
-    let cita = registros[index];
-    indice = index;
+  let cita = registros[index];
+  indice = index;
 
-    document.getElementById('nombre').value = cita.nombre;
-    document.getElementById('propietario').value = cita.propietario;
-    document.getElementById('telefono').value = cita.telefono;
-    document.getElementById('tipoMascota').value = cita.tipoMascota;
-    document.getElementById('sintomas').value = cita.sintomas;
-    document.getElementById('fecha').value = cita.fecha;
-    document.getElementById('hora').value = cita.hora;
+  document.getElementById("nombre").value = cita.nombre;
+  document.getElementById("propietario").value = cita.propietario;
+  document.getElementById("telefono").value = cita.telefono;
+  document.getElementById("tipoMascota").value = cita.tipoMascota;
+  document.getElementById("sintomas").value = cita.sintomas;
+  document.getElementById("fecha").value = cita.fecha;
+  document.getElementById("hora").value = cita.hora;
 
-    op = true;
+  op = true;
+}
+
+
+
+function anularCita(index) {
+    registros[index].estado = 'anuladas'; 
+    mostrarCitasFiltradas(registros); 
+}
+
+function cerrarCita(index) {
+    registros[index].estado = 'cerradas'; 
+    mostrarCitasFiltradas(registros); 
+}
+
+
+
+
+
+function mostrarCitasFiltradas(estado) {
+    const contenedorCitasFiltradas = document.getElementById("citas");
+    contenedorCitasFiltradas.innerHTML = "";
+  
+    const citasFiltradas = registros.filter(cita => {
+            if (estado === "abiertas") {
+        
+        return !cita.anulada && !cita.cerrada;
+
+      }
+       else if (estado === "anuladas") {
+        
+        return cita.anulada;
+      } 
+      else if (estado === "cerradas") {
+        
+        return cita.cerrada;
+      }
+      return false;
+    });
+  
 }
 
