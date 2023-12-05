@@ -26,9 +26,9 @@
             <div class="tipoCita">
                 <h3>Organizar Por:</h3><br>
 
-                <input type="radio" name="filtro" id="abierta" checked> Abierta <br> <br>
-                <input type="radio" name="filtro" id="cerrada"> Cerrada <br> <br>
-                <input type="radio" name="filtro" id="anulada"> Anulada
+                <input type="radio" name="filtro" id="abierta" checked value="abierta"> Abierta <br> <br>
+                <input type="radio" name="filtro" id="cerrada" value="cerrada"> Cerrada <br> <br>
+                <input type="radio" name="filtro" id="anulada" value="anulada"> Anulada
 
             </div>
             <div class="agendaCita">
@@ -64,7 +64,7 @@
                                 <option value="pato">Pato</option>
                             </select>
                         </div>
-                        <button id="buton" onclick="registrar()">Asignar</button>
+                        <button id="buton" onclick="validar()">Asignar</button>
 
                     </div>
                 </div>
@@ -73,10 +73,11 @@
 
 
         </div>
-        <div class="citas">
+        <div class="cita">
             <h4 class="citasA"> Citas </h4>
             
-            <div id="citasAbiertas"></div>
+            <div id="citas"></div>
+           
         </div>
 
     </main>
