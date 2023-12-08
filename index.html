@@ -26,58 +26,67 @@
             <div class="tipoCita">
                 <h3>Organizar Por:</h3><br>
 
-                <input type="radio" name="filtro" id="abierta" checked value="abierta"> Abierta <br> <br>
-                <input type="radio" name="filtro" id="cerrada" value="cerrada"> Cerrada <br> <br>
-                <input type="radio" name="filtro" id="anulada" value="anulada"> Anulada
+                <input type="radio" name="estado" id="abierta" checked value="abierta" onchange="mostrarCitas()">
+                Abierta <br> <br>
+                <input type="radio" name="estado" id="cerrada" value="cerrada" onchange="mostrarCitas()"> Cerrada <br>
+                <br>
+                <input type="radio" name="estado" id="anulada" value="anulada" onchange="mostrarCitas()"> Anulada
 
             </div>
-            <div class="agendaCita">
-                <h4>AGENDA TU CITA</h4>
-                <div class="form">
-                    <div class="texto">
-                        <label>Nombre:</label>
-                        <input type="text" id="nombre">
+            <div ><button id="mostrarFormulario">Registrar Cita</button>
+                <div class="agendaCita" id="formulario">
+                    
 
-                        <label>Propietario:</label>
-                        <input type="text" id="propietario">
+                    <h4>AGENDA TU CITA</h4>
 
-                        <label>Telefono:</label>
-                        <input type="number" id="telefono">
+                    <div class="form">
+                        <div class="texto">
+                            <label>Nombre:</label>
+                            <input type="text" id="nombre">
 
-                        <label>Fecha:</label>
-                        <input type="date" id="fecha">
+                            <label>Propietario:</label>
+                            <input type="text" id="propietario">
 
-                        <label>Hora:</label>
-                        <input type="time" id="hora">
+                            <label>Telefono:</label>
+                            <input type="number" id="telefono">
 
-                        <label>Sintomas:</label>
-                        <input type="text" id="sintomas">
+                            <label>Fecha:</label>
+                            <input type="date" id="fecha">
 
-                        <div>
-                            <label>Tipo de Mascota</label>
-                            <select name="" id="tipoMascota">
-                                <option value=""></option>
-                                <option value="gato">Gato</option>
-                                <option value="perro">Perro</option>
-                                <option value="gallina">Gallina</option>
-                                <option value="conejo">Conejo</option>
-                                <option value="pato">Pato</option>
-                            </select>
+                            <label>Hora:</label>
+                            <input type="time" id="hora">
+
+                            <label>Sintomas:</label>
+                            <input type="text" id="sintomas">
+                            <label for="estado"></label>
+
+                            <div>
+                                <label>Tipo de Mascota</label>
+                                <select name="" id="tipoMascota">
+                                    <option value=""></option>
+                                    <option value="gato">Gato</option>
+                                    <option value="perro">Perro</option>
+                                    <option value="gallina">Gallina</option>
+                                    <option value="conejo">Conejo</option>
+                                    <option value="pato">Pato</option>
+                                </select>
+                            </div>
+                            <button id="buton" onclick="validar()">Asignar</button>
+
                         </div>
-                        <button id="buton" onclick="validar()">Asignar</button>
-
                     </div>
-                </div>
 
+
+                </div>
             </div>
 
 
         </div>
         <div class="cita">
             <h4 class="citasA"> Citas </h4>
-            
+
             <div id="citas"></div>
-           
+
         </div>
 
     </main>
