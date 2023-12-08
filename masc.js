@@ -3,6 +3,14 @@ let minMaximo = 45;
 let registros = [];
 let op = null;
 let indice = null;
+document.getElementById("formulario").style.display = "none";
+
+const botonMostrar=document.getElementById("mostrarFormulario");
+const formulario=document.getElementById("formulario");
+ 
+botonMostrar.addEventListener("click", function(){
+  formulario.style.display=`block`;
+  });
 
 let animales = [
   { gato: "./imagenes/gato.png" },
@@ -87,7 +95,7 @@ function validar() {
       validarMinutos > minMaximo
     ) {
       document.getElementById("alert").textContent =
-        "debes seleccionar una hora entre las 8 am y las 5:45 pm";
+        "debes seleccionar una hora entre las 8 am y las 7:45 pm";
       setTimeout(() => {
         document.getElementById("alert").textContent = "";
       }, 2000);
@@ -118,6 +126,8 @@ function registrar() {
   let telefono = document.getElementById("telefono").value;
   let tipoMascota = document.getElementById("tipoMascota").value;
   let sintomas = document.getElementById("sintomas").value;
+  let estado = document.querySelector('input[name="estado"]:checked').value="abierta";
+  
 
   if (op === true) {
     registros[indice].nombre = nombre;
@@ -127,10 +137,11 @@ function registrar() {
     registros[indice].telefono = telefono;
     registros[indice].tipoMascota = tipoMascota;
     registros[indice].sintomas = sintomas;
+    registros[indice].estado= estado;
 
     op = false;
 
-    mostrarCitasAbiertas();
+    mostrarCitas();
   } else {
     let user = {
       nombre: nombre,
@@ -140,10 +151,11 @@ function registrar() {
       sintomas: sintomas,
       fecha: fecha,
       hora: hora,
+      estado:estado
     };
 
     registros.push(user);
-    mostrarCitasAbiertas();
+    mostrarCitas();
   }
 
   document.getElementById("nombre").value = "";
@@ -155,11 +167,13 @@ function registrar() {
   document.getElementById("hora").value = "";
 }
 
-function mostrarCitasAbiertas() {
-  let contenedorCitas = document.getElementById("citas");
-  contenedorCitas.innerHTML = "";
+function mostrarCitas() {
+  const estadoSeleccionado = document.querySelector('input[name="estado"]:checked').value;
+  const citas = document.getElementById('citas');
+  citas.innerHTML = '';
 
   registros.forEach((cita, index) => {
+    if (cita.estado === estadoSeleccionado || estadoSeleccionado === 'abiertas') {
     let card = document.createElement("div");
     card.classList.add("card");
 
@@ -211,6 +225,10 @@ function mostrarCitasAbiertas() {
     tipoMascotas.textContent = `Tipo Mascota: ${cita.tipoMascota}`;
     detalles.appendChild(tipoMascotas);
 
+    let estado = document.createElement("p");
+    estado.textContent = `Estado: ${cita.estado}`;
+    detalles.appendChild(estado);
+
     let botonEditar = document.createElement("button");
     botonEditar.textContent = "Editar";
     botonEditar.classList.add("buton");
@@ -235,12 +253,33 @@ function mostrarCitasAbiertas() {
     });
     detalles.appendChild(botonCerrar);
 
+    let botonReabrir = document.createElement("button");
+    botonReabrir.textContent = "Abrir";
+    botonReabrir.classList.add("buton");
+    botonReabrir.addEventListener("click", () => {
+      reabrirCita(index);
+    });
+    detalles.appendChild(botonReabrir);
+
+    if (cita.estado === 'anulada' || cita.estado === 'cerrada') {
+      botonEditar.disabled = true;
+    } else {
+      botonEditar.addEventListener("click", () => {
+        editarCita(index);
+      });
+    }
+
+    detalles.appendChild(botonEditar);
+
     card.appendChild(detalles);
-    contenedorCitas.appendChild(card);
+    citas.appendChild(card);
+  }
   });
+  document.getElementById("formulario").style.display = "none";
 }
 
 function editarCita(index) {
+  document.getElementById("formulario").style.display = "block";
   let cita = registros[index];
   indice = index;
 
@@ -253,44 +292,24 @@ function editarCita(index) {
   document.getElementById("hora").value = cita.hora;
 
   op = true;
+   
 }
-
-
-
 function anularCita(index) {
-    registros[index].estado = 'anuladas'; 
-    mostrarCitasFiltradas(registros); 
+  registros[index].estado = 'anulada';
+  mostrarCitas();
 }
 
 function cerrarCita(index) {
-    registros[index].estado = 'cerradas'; 
-    mostrarCitasFiltradas(registros); 
+  registros[index].estado = 'cerrada';
+  mostrarCitas();
+}
+function reabrirCita(index) {
+  registros[index].estado = 'abierta';
+  mostrarCitas();
 }
 
 
 
 
 
-function mostrarCitasFiltradas(estado) {
-    const contenedorCitasFiltradas = document.getElementById("citas");
-    contenedorCitasFiltradas.innerHTML = "";
-  
-    const citasFiltradas = registros.filter(cita => {
-            if (estado === "abiertas") {
-        
-        return !cita.anulada && !cita.cerrada;
-
-      }
-       else if (estado === "anuladas") {
-        
-        return cita.anulada;
-      } 
-      else if (estado === "cerradas") {
-        
-        return cita.cerrada;
-      }
-      return false;
-    });
-  
-}
 
