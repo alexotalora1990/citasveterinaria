@@ -16,7 +16,7 @@ let animales = [
   { gato: "./imagenes/gato.png" },
   { perro: "./imagenes/perro.png" },
   { gallina: "./imagenes/gallina.png" },
-  { pato: "./imagenes/pato.png" },
+  { pato: "./imagenes/patopng.png" },
   { conejo: "./imagenes/conejo.png" },
 ];
 
