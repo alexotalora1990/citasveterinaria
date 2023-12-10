@@ -3,6 +3,7 @@ let minMaximo = 45;
 let registros = [];
 let op = null;
 let indice = null;
+
 document.getElementById("formulario").style.display = "none";
 
 const botonMostrar=document.getElementById("mostrarFormulario");
@@ -10,13 +11,15 @@ const formulario=document.getElementById("formulario");
  
 botonMostrar.addEventListener("click", function(){
   formulario.style.display=`block`;
+  document.getElementById("abierta").checked = true;
   });
+
 
 let animales = [
   { gato: "./imagenes/gato.png" },
   { perro: "./imagenes/perro.png" },
   { gallina: "./imagenes/gallina.png" },
-  { pato: "./imagenes/patopng.png" },
+  { pato: "./imagenes/pato.png" },
   { conejo: "./imagenes/conejo.png" },
 ];
 
@@ -119,6 +122,7 @@ function validar() {
 }
 
 function registrar() {
+  
   let nombre = document.getElementById("nombre").value;
   let propietario = document.getElementById("propietario").value;
   let fecha = document.getElementById("fecha").value;
@@ -126,8 +130,7 @@ function registrar() {
   let telefono = document.getElementById("telefono").value;
   let tipoMascota = document.getElementById("tipoMascota").value;
   let sintomas = document.getElementById("sintomas").value;
-  let estado = document.querySelector('input[name="estado"]:checked').value="abierta";
-  
+  let estado = document.querySelector('input[name="estado"]:checked').value;
 
   if (op === true) {
     registros[indice].nombre = nombre;
@@ -165,6 +168,9 @@ function registrar() {
   document.getElementById("sintomas").value = "";
   document.getElementById("fecha").value = "";
   document.getElementById("hora").value = "";
+
+  
+  
 }
 
 function mostrarCitas() {
@@ -294,10 +300,15 @@ function editarCita(index) {
   op = true;
    
 }
+
+
+
+
 function anularCita(index) {
   registros[index].estado = 'anulada';
   mostrarCitas();
 }
+
 
 function cerrarCita(index) {
   registros[index].estado = 'cerrada';
