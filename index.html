@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -11,18 +11,21 @@
 
 <body>
     <header>
+       
         <nav>
             <h1>Tienda de Mascotas</h1>
-            <ul>
+                       <ul>
                 <li><a href="index.html"> Inicio </a></li>
-                <li><a href="index.html"> Agendar </a></li>
+                <li><a href="index.html"> Contacto </a></li>
             </ul>
         </nav>
     </header>
     <main>
-        <h2>CITAS AGENDADAS</h2>
-        <h3 id="alert"></h3>
+        
+
+        
         <div class="container">
+            
             <div class="tipoCita">
                 <h3>Organizar Por:</h3><br>
 
@@ -33,9 +36,13 @@
                 <input type="radio" name="estado" id="anulada" value="anulada" onchange="mostrarCitas()"> Anulada
 
             </div>
-            <div ><button id="mostrarFormulario">Registrar Cita</button>
+            <div class="registro">
+                <h2>REGISTRA TUS CITAS</h2>
+                <P>↘ 🐔🐰🐱🐶🦆 ↙</P>
+                <div class="botonRegistrar"><button id="mostrarFormulario">Registrar Cita</button>
+                </div>
                 <div class="agendaCita" id="formulario">
-                    
+                    <h3 id="alert"></h3>
 
                     <h4>AGENDA TU CITA</h4>
 
@@ -45,19 +52,19 @@
                             <input type="text" id="nombre">
 
                             <label>Propietario:</label>
-                            <input type="text" id="propietario">
+                            <input type="text" id="propietario"> <br>
 
                             <label>Telefono:</label>
                             <input type="number" id="telefono">
 
                             <label>Fecha:</label>
-                            <input type="date" id="fecha">
+                            <input type="date" id="fecha"><br>
 
                             <label>Hora:</label>
                             <input type="time" id="hora">
 
                             <label>Sintomas:</label>
-                            <input type="text" id="sintomas">
+                            <input type="text" id="sintomas"><br>
                             <label for="estado"></label>
 
                             <div>
